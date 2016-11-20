@@ -1,0 +1,161 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BloodDonor.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> &#8921; BD Donors</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="~/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/dist/css/animate.css" rel="stylesheet">
+    <link href="~/dist/css/icomoon.css" rel="stylesheet">
+    <link href="~/dist/css/superfish.css" rel="stylesheet">
+    <link href="~/dist/css/style.css" rel="stylesheet">
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="respond" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+        <div id="fh5co-wrapper">
+		    <div id="fh5co-page">
+			    <div class="header-top">
+				    <div class="container">
+					    <div class="row">
+						    <div class="col-md-6 col-sm-6 text-left fh5co-link">
+							    <a runat="server" href="~/FAQ">FAQ</a>
+							    <a runat="server" href="~/Forum">Forum</a>
+							    <a runat="server" href="~/Contact">Contact</a>
+						    </div>
+						    <div class="col-md-6 col-sm-6 text-right fh5co-social">
+							    <a href="#" class="grow"><i class="icon-facebook2"></i></a>
+							    <a href="#" class="grow"><i class="icon-twitter2"></i></a>
+							    <a href="#" class="grow"><i class="icon-instagram2"></i></a>
+						    </div>
+					    </div>
+				    </div>
+			    </div> 
+                                
+		        <header id="fh5co-header-section" class="sticky-banner">
+			        <div class="container">
+				        <div class="nav-header">
+					        <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+					        <h1 id="fh5co-logo"><a runat="server" href="~/Default">BD Donors</a></h1>
+					        <!-- START #fh5co-menu-wrap -->
+					        <nav id="fh5co-menu-wrap" role="navigation">
+						        <ul class="sf-menu" id="fh5co-primary-menu">
+                                    <li><a runat="server" id="homeLink" href="~/Default">Home</a></li>
+								    <li><a runat="server" href="~/Donors">Donors</a></li>
+								    <li><a runat="server" href="~/Events">Events</a></li>
+								    <li><a runat="server" href="~/About">About</a></li>
+								    <li><a runat="server" href="~/Contact">Contact</a></li>
+                                    <%if (Session["FullName"] == null)
+                                        {%>
+                                    <li>
+								        <a href="#" class="fh5co-sub-ddown">Member</a>
+								        <ul class="fh5co-sub-menu">
+                                            <li><a runat="server" href="~/Registration">Sign Up</a></li>
+                                            <li><a runat="server" href="~/Login">Sign In</a></li>
+								        </ul>
+							        </li>
+                                    <% }
+                                    else { %>
+							        <li>
+								        <a href="#" class="fh5co-sub-ddown">
+                                            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label></a>
+								        <ul class="fh5co-sub-menu">
+                                            <li><a runat="server" href="~/Profile">Profile</a></li>
+								 	        <li><a runat="server" href="~/LogOut">Log Out</a></li>
+								        </ul>
+							        </li>
+                                        
+                                    <%} %>
+								    
+							    </ul>
+						    </nav>
+					    </div>
+				    </div>
+                    <script>
+                        $(function () {
+                            var url =  window.location.pathname,
+                                urlRegExp = new RegExp(url.replace(/\/$/, '') + "$");
+                            url = 'http://localhost:10816' + url;
+
+                            if (url == 'http://localhost:10816/') {
+                                $('#homeLink').addClass('active');
+                            }
+                            else {
+                                $('.sf-menu a').each(function () {
+                                    if (urlRegExp.test(this.href.replace(/\/$/, ''))) {
+                                        $(this).addClass('active');
+                                        $(this)             //the selector of your span
+                                            .parents('li:eq(1)')      //get the first element, which would be the span
+                                            .addClass('active');
+                                    }
+                                });
+                            }
+                        });
+                    </script>
+			    </header>
+
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+			    
+                <footer>
+				    <div id="footer">
+					    <div class="container">
+						    <div class="row">
+							    <div class="col-md-6 col-md-offset-3 text-center">
+								    <p class="fh5co-social-icons">
+									    <a href="#"><i class="icon-twitter2"></i></a>
+									    <a href="#"><i class="icon-facebook2"></i></a>
+									    <a href="#"><i class="icon-instagram"></i></a>
+									    <a href="#"><i class="icon-dribbble2"></i></a>
+									    <a href="#"><i class="icon-youtube"></i></a>
+								    </p>
+								    <p>&copy; Copyright 2016 <a href="#">Shepu Paul</a>. All Rights Reserved. <br>Designed & Developed by <a href="http://freehtml5.co/" target="_blank">Shepu Paul</a></p>
+							    </div>
+						    </div>
+					    </div>
+				    </div>
+			    </footer>
+		    </div>
+	    </div>
+
+    </form>
+</body>
+    <script src='<%= ResolveUrl("~/dist/js/jquery.easing.1.3.js") %>'></script>
+    <script src='<%= ResolveUrl("~/dist/js/jquery.waypoints.min.js") %>'></script> 
+    <script src='<%= ResolveUrl("~/dist/js/sticky.js") %>'></script> 
+    <script src='<%= ResolveUrl("~/dist/js/jquery.stellar.min.js") %>'></script> 
+    <script src='<%= ResolveUrl("~/dist/js/hoverIntent.js") %>'></script> 
+    <script src='<%= ResolveUrl("~/dist/js/superfish.js") %>'></script> 
+    <script src='<%= ResolveUrl("~/dist/js/main.js") %>'></script> 
+</html>
